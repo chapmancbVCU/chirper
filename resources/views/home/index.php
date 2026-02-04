@@ -1,5 +1,6 @@
 <?php $this->start('head'); ?>
 <script src="<?=env('APP_DOMAIN', '/')?>node_modules/jquery/dist/jquery.min.js"></script>
+<?= $this->setSiteTitle("Welcome - Chirper") ?>
 <?php $this->end(); ?>
 
 <?php $this->start('body'); ?>
