@@ -7,6 +7,23 @@ use Core\Controller;
  */
 class ChirpController extends Controller {
     public function indexAction(): void {
+        $chirps = [
+            [
+                'author' => 'Jane Doe',
+                'message' => 'Just deployed my first Chappy app!',
+                'time' => '5 minutes ago'
+            ],
+            [
+                'author' => 'John Smith',
+                'message' => 'Chappy also makes web development fun',
+                'time' => '1 hour ago'
+            ],
+            [
+                'author' => 'Abcde Johnson',
+                'message' => 'Working on something cool with Chirper...',
+                'time' => '3 hours ago'
+            ],
+        ];
         $this->view->render('home.index');
     }
 
