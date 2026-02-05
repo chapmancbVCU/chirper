@@ -24,6 +24,7 @@ class ChirpController extends Controller {
                 'time' => '3 hours ago'
             ],
         ];
+        $this->view->chirps = $chirps;
         $this->view->render('home.index');
     }
 
