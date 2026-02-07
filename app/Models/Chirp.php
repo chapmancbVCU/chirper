@@ -1,14 +1,15 @@
 <?php
 namespace App\Models;
 use Core\Model;
-use Core\Traits\PasswordPolicy;
+use Core\Traits\HasTimestamps;
 
 /**
  * Implements features of the Chirp class.
  */
 class Chirp extends Model {
-    use PasswordPolicy;
-    // Fields you don\'t want saved on form submit
+    use HasTimestamps;
+
+    // Fields you don't want saved on form submit
     // public const blackList = [];
 
     // Set to name of database table.
