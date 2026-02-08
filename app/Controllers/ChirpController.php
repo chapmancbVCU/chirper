@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Models\Chirp;
 use Core\Controller;
 use Core\Services\AuthService;
+use Core\Session;
 
 /**
  * Undocumented class
@@ -11,11 +12,26 @@ use Core\Services\AuthService;
 class ChirpController extends Controller {
     public function indexAction(): void {
         $user = AuthService::currentUser();
+        $newChirp = new Chirp();
         if($user) {
-            $chirps = Chirp::find();
+            $chirps = Chirp::find(['order' => 'created_at DESC']);
         }
+
+        if($this->request->isPost()) {
+            $this->request->csrfCheck();
+            $newChirp->assign($this->request->get());
+            $newChirp->user_id = $user->id;
+            $newChirp->save();
+            if($newChirp->validationPassed()) {
+                flashMessage(Session::SUCCESS, "Chirp created!");
+                redirect('chirp.index');
+            }
+        }
+
         $this->view->user = $user;
         $this->view->chirps = $chirps;
+        $this->view->newChirp = $newChirp;
+        $this->view->displayErrors = $newChirp->getErrorMessages();
         $this->view->render('home.index');
     }
 

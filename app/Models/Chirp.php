@@ -3,6 +3,7 @@ namespace App\Models;
 use Core\Model;
 use Core\Traits\HasTimestamps;
 use Core\Validators\MaxValidator;
+use Core\Validators\RequiredValidator;
 
 /**
  * Implements features of the Chirp class.
@@ -48,6 +49,7 @@ class Chirp extends Model {
      * @return void
      */
     public function validator(): void {
-        $this->runValidation(new MaxValidator($this, ['field' => 'message', 'rule' => 255, 'message' => 'Chirp must be less than 255 characters.']));
+        $this->runValidation(new MaxValidator($this, ['field' => 'message', 'rule' => 255, 'message' => 'Chirp must be 255 characters or less.']));
+        $this->runValidation(new RequiredValidator($this, ['field' => 'message', 'message' => 'Please write something to chirp!']));
     }
 }

@@ -6,9 +6,24 @@
 <?php $this->start('body'); ?>
 
 <div class="container">
-  <div class="card bg-light shadow-lg w-75 mx-auto my-3">
-    <h1 class="ms-3 my-3 pt-3"><strong>Welcome to Chirper!</strong></h1>
-    <p class="ms-3 my-3 pb-3">This is your brand new Chappy.php application.  Time to make it sing (or chirp)!</p>
+  <h1 class=" my-3 pt-3 text-center"><strong>Latest Chirps</strong></h1>
+  <div class="welcome bg-light shadow-lg w-75 mx-auto my-3">
+    <form class="form" action="" method="POST">
+      <?= csrf() ?>
+      <?= errorBag($this->displayErrors) ?>
+
+      <?= textarea(
+        "",
+        'message',  
+        $this->newChirp->message, 
+        ['class' => 'form-control input-sm chirp-textarea', 'placeholder' => 'What\'s on your mind?'],
+        ['class' => 'form-group mb-3 mx-3']
+        ) ?>
+
+        <div class="col-md-12 text-end">
+            <?= submit('Submit', ['class' => 'btn btn-primary mb-3 me-3'])  ?>
+        </div>
+    </form>
   </div>
 
   <?php if($this->chirps): ?>
