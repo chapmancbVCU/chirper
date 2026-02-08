@@ -34,9 +34,14 @@ class ChirpController extends Controller {
     }
 
     public function editAction($id): void {
-        $chirp = Chirp::findByIdAndUserId($id, AuthService::currentUser()->id);
+        $user =  AuthService::currentUser();
+        $chirp = Chirp::findByIdAndUserId($id, $user->id);
+        if(!$chirp) {
+            flashMessage(Session::WARNING, "You do not have permission to update this chirp!");
+            redirect('chirp.index');
+        }
 
-         if($this->request->isPost()) {
+        if($this->request->isPost()) {
             $this->request->csrfCheck();
             $chirp->assign($this->request->get());
             if($chirp->save()) {
@@ -48,6 +53,23 @@ class ChirpController extends Controller {
         $this->view->displayErrors = $chirp->getErrorMessages();
         $this->view->render('chirp.edit');
     }
+
+    public function destroyAction($id): void {
+        $user =  AuthService::currentUser();
+        $chirp = Chirp::findByIdAndUserId($id, $user->id);
+        if(!$chirp) {
+            flashMessage(Session::WARNING, "You do not have permission to delete this chirp!");
+            redirect('chirp.index');
+        }
+
+        if($this->request->isPost()) {
+            $this->request->csrfCheck();
+            $chirp->delete();
+            flashMessage(Session::SUCCESS, "Chirp has been deleted!");
+        }
+        redirect('chirp.index');
+    }
+
     /**
      * Runs when the object is constructed.
      *
