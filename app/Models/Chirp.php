@@ -43,6 +43,15 @@ class Chirp extends Model {
         $this->timeStamps();
     }
 
+    public static function findByIdAndUserId($chirp_id, $user_id, $params = []) {
+        $conditions = [
+            'conditions' => 'id = ? AND user_id = ?',
+            'bind' => [$chirp_id, $user_id]
+        ];
+        $conditions = array_merge($conditions, $params);
+        return self::findFirst($conditions);
+    }
+
     /**
      * Performs validation for the Chirp model.
      *

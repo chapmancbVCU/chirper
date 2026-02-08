@@ -33,6 +33,21 @@ class ChirpController extends Controller {
         $this->view->render('home.index');
     }
 
+    public function editAction($id): void {
+        $chirp = Chirp::findByIdAndUserId($id, AuthService::currentUser()->id);
+
+         if($this->request->isPost()) {
+            $this->request->csrfCheck();
+            $chirp->assign($this->request->get());
+            if($chirp->save()) {
+                flashMessage(Session::SUCCESS, "Chirp has been updated!");
+                redirect('chirp.index');
+            }
+        }
+        $this->view->chirp = $chirp;
+        $this->view->displayErrors = $chirp->getErrorMessages();
+        $this->view->render('chirp.edit');
+    }
     /**
      * Runs when the object is constructed.
      *

@@ -7,8 +7,8 @@
 
 <div class="container">
   <h1 class=" my-3 pt-3 text-center"><strong>Latest Chirps</strong></h1>
-  <?php if($this->user): ?>
-    <div class="welcome bg-light shadow-lg w-75 mx-auto my-3">
+  <div class="welcome bg-light shadow-lg w-75 mx-auto my-3">
+    <?php if($this->user): ?>
       <form class="form" action="" method="POST">
         <?= csrf() ?>
         <?= errorBag($this->displayErrors) ?>

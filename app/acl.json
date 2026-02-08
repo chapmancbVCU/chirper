@@ -11,7 +11,8 @@
         },
         "Auth" : ["logout"],
         "Contacts" : ["*"],
-        "Profile" : ["*"]
+        "Profile" : ["*"],
+        "Chirp" : ["edit", "update", "destroy"]
     },
     "Admin" : {
         "denied" : {},
