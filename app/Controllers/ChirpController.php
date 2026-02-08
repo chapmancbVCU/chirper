@@ -13,11 +13,9 @@ class ChirpController extends Controller {
     public function indexAction(): void {
         $user = AuthService::currentUser();
         $newChirp = new Chirp();
-        if($user) {
-            $chirps = Chirp::find(['order' => 'created_at DESC']);
-        }
+        $chirps = Chirp::find(['order' => 'created_at DESC']);
 
-        if($this->request->isPost()) {
+        if($user && $this->request->isPost()) {
             $this->request->csrfCheck();
             $newChirp->assign($this->request->get());
             $newChirp->user_id = $user->id;

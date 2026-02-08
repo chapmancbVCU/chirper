@@ -1,7 +1,7 @@
 {
     "Guest" : {
         "denied" : {},
-        "Chirp" : ["*"],
+        "Chirp" : ["index"],
         "Auth" : ["login", "register", "resetPassword"],
         "Restricted" : ["*"]
     },

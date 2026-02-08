@@ -7,23 +7,25 @@
 
 <div class="container">
   <h1 class=" my-3 pt-3 text-center"><strong>Latest Chirps</strong></h1>
-  <div class="welcome bg-light shadow-lg w-75 mx-auto my-3">
-    <form class="form" action="" method="POST">
-      <?= csrf() ?>
-      <?= errorBag($this->displayErrors) ?>
+  <?php if($this->user): ?>
+    <div class="welcome bg-light shadow-lg w-75 mx-auto my-3">
+      <form class="form" action="" method="POST">
+        <?= csrf() ?>
+        <?= errorBag($this->displayErrors) ?>
 
-      <?= textarea(
-        "",
-        'message',  
-        $this->newChirp->message, 
-        ['class' => 'form-control input-sm chirp-textarea', 'placeholder' => 'What\'s on your mind?'],
-        ['class' => 'form-group mb-3 mx-3']
-        ) ?>
+        <?= textarea(
+          "",
+          'message',  
+          $this->newChirp->message, 
+          ['class' => 'form-control input-sm chirp-textarea', 'placeholder' => 'What\'s on your mind?'],
+          ['class' => 'form-group mb-3 mx-3']
+          ) ?>
 
-        <div class="col-md-12 text-end">
-            <?= submit('Submit', ['class' => 'btn btn-primary mb-3 me-3'])  ?>
-        </div>
-    </form>
+          <div class="col-md-12 text-end">
+              <?= submit('Submit', ['class' => 'btn btn-primary mb-3 me-3'])  ?>
+          </div>
+      </form>
+    <?php endif; ?>
   </div>
 
   <?php if($this->chirps): ?>
