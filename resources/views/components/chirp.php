@@ -1,8 +1,6 @@
 <?php use Core\Lib\Utilities\DateTime; ?>
-<?php use App\Models\Users;
-use Core\Services\AuthService;
-
- ?>
+<?php use App\Models\Users; ?>
+<?php use Core\Services\AuthService; ?>
 
 <?php $user = Users::findById((int)$this->chirp->user_id); ?>
 <div class="card bg-light shadow-lg w-75 mx-auto my-3">
@@ -13,21 +11,21 @@ use Core\Services\AuthService;
         alt="User Avatar" style="width: 50px; height: 50px; object-fit: cover;"/>
         <div class="d-flex flex-column">
           <h1 class="ms-3"><strong><?= Users::findById($this->chirp->user_id)->fname?></strong></h1>
-          <?php if(AuthService::currentUser() == $this->chirp->user_id): ?>
-          <div class="ms-3">
-            <span><a href="<?= route('chirp.edit', [$this->chirp->id]) ?>" class="btn btn-sm btn-primary py-0">Edit</a></span>
-            <span>
-              <form method="POST" 
-                  action="<?=route('chirp.destroy', [$this->chirp->id])?>" 
-                  class="d-inline-block" 
-                  onsubmit="if(!confirm('Are you sure you want to delete this chirp?')){return false;}">
-                  <?= hidden('id', $this->chirp->id) ?>
-                  <?= $csrfToken = csrf() ?>
-                  <button type="submit" class="btn btn-danger btn-sm py-0"> Delete
-                  </button>
-              </form>
-            </span>
-          </div>
+          <?php if(AuthService::currentUser()->id == $this->chirp->user_id): ?>
+            <div class="ms-3">
+              <span><a href="<?= route('chirp.edit', [$this->chirp->id]) ?>" class="btn btn-sm btn-primary py-0">Edit</a></span>
+              <span>
+                <form method="POST" 
+                    action="<?=route('chirp.destroy', [$this->chirp->id])?>" 
+                    class="d-inline-block" 
+                    onsubmit="if(!confirm('Are you sure you want to delete this chirp?')){return false;}">
+                    <?= hidden('id', $this->chirp->id) ?>
+                    <?= $csrfToken = csrf() ?>
+                    <button type="submit" class="btn btn-danger btn-sm py-0"> Delete
+                    </button>
+                </form>
+              </span>
+            </div>
           <?php endif; ?>
         </div>
       <?php else: ?>
@@ -41,10 +39,4 @@ use Core\Services\AuthService;
       <?= DateTime::timeAgo($this->chirp->created_at) ?>
     </p>
   </div>
-  
-  
-  
-  
 </div>
-
-
